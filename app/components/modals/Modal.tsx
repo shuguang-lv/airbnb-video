@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import Button from '../Button'
 
@@ -36,22 +36,26 @@ const Modal: React.FC<ModalProps> = ({
   }, [isOpen])
 
   const handleClose = useCallback(() => {
-    if (disabled) return
+    if (disabled)
+      return
     setShowModal(false)
     setTimeout(onClose, 300)
   }, [disabled, onClose])
 
   const handleSubmit = useCallback(() => {
-    if (disabled) return
+    if (disabled)
+      return
     onSubmit()
   }, [disabled, onSubmit])
 
   const handleSecondaryAction = useCallback(() => {
-    if (disabled || !secondaryAction) return
+    if (disabled || !secondaryAction)
+      return
     secondaryAction()
   }, [disabled, secondaryAction])
 
-  if (!isOpen) return null
+  if (!isOpen)
+    return null
 
   return (
     <>
@@ -61,7 +65,7 @@ const Modal: React.FC<ModalProps> = ({
       >
         <div
           className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto"
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
         >
           {/* CONTENT */}
           <div

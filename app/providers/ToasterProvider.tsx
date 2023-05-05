@@ -2,7 +2,7 @@
 
 import { Toaster } from 'react-hot-toast'
 
-const ToasterProvider = () => {
+function ToasterProvider() {
   return <Toaster />
 }
 

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 
-const Avatar = () => {
+function Avatar() {
   return (
     <Image
       alt="avatar"
