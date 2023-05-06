@@ -1,2 +1,6 @@
-*.md
+dist/*
+.cache
+public
 node_modules
+*.esm.js
+*.md

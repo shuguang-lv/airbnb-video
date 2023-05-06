@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:eslint": "eslint . --fix",
+    "lint:fix": "next lint --fix",
+    "typecheck": "tsc --noEmit",
+    "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "prisma:generate": "dotenv -e .env.local npx prisma generate",
     "prisma:push": "dotenv -e .env.local npx prisma db push",
     "prisma:studio": "dotenv -e .env.local npx prisma studio"
@@ -34,12 +37,19 @@
     "zustand": "^4.3.7"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.38.6",
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "@types/bcrypt": "^5.0.0",
-    "eslint": "^8.39.0",
+    "@typescript-eslint/parser": "^5.59.2",
+    "eslint": "^8.40.0",
     "eslint-config-next": "^13.4.1",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "eslint-plugin-tailwindcss": "^3.11.0",
     "lint-staged": "^13.2.1",
+    "prettier": "^2.8.8",
     "prisma": "^4.12.0"
   }
 }

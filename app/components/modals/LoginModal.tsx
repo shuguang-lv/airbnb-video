@@ -1,20 +1,20 @@
-'use client'
+"use client"
 
-import { signIn } from 'next-auth/react'
-import { AiFillGithub } from 'react-icons/ai'
-import { FcGoogle } from 'react-icons/fc'
-import { useState } from 'react'
-import type { FieldValues, SubmitHandler } from 'react-hook-form'
-import { useForm } from 'react-hook-form'
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form"
+import { toast } from "react-hot-toast"
+import { AiFillGithub } from "react-icons/ai"
+import { FcGoogle } from "react-icons/fc"
 
-import { toast } from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
-import Heading from '../Heading'
-import Input from '../inputs/Input'
-import Button from '../Button'
-import useLoginModal from '../../hooks/useLoginModal'
-import Modal from './Modal'
-import useRegisterModal from '@/app/hooks/useRegisterModal'
+import useRegisterModal from "@/app/hooks/useRegisterModal"
+
+import useLoginModal from "../../hooks/useLoginModal"
+import Button from "../Button"
+import Heading from "../Heading"
+import Input from "../inputs/Input"
+import Modal from "./Modal"
 
 function LoginModal() {
   const router = useRouter()
@@ -28,75 +28,74 @@ function LoginModal() {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   })
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true)
     try {
-      const callback = await signIn('credentials', {
+      const callback = await signIn("credentials", {
         ...data,
         redirect: false,
       })
+
       setIsLoading(false)
       if (callback?.ok) {
-        toast('Logged in successfully', { icon: '👏' })
+        toast("Logged in successfully", { icon: "👏" })
         router.refresh()
         loginModal.onClose()
       }
-      if (callback?.error)
+      if (callback?.error) {
         toast.error(`${callback.error}`)
-    }
-    catch (error) {
-
-    }
+      }
+    } catch (error) {}
   }
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome back" subtitle="Login to your account" />
+      <Heading subtitle="Login to your account" title="Welcome back" />
       <Input
+        disabled={isLoading}
+        errors={errors}
         id="email"
         label="Email"
-        disabled={isLoading}
         register={register}
-        errors={errors}
         required
       />
       <Input
-        id="password"
-        type="password"
-        label="Password"
         disabled={isLoading}
-        register={register}
         errors={errors}
+        id="password"
+        label="Password"
+        register={register}
         required
+        type="password"
       />
     </div>
   )
 
   const footerContent = (
-    <div className="flex flex-col gap-4 mt-3">
+    <div className="mt-3 flex flex-col gap-4">
       <hr />
       <Button
-        outline
-        label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn('google')}
+        label="Continue with Google"
+        onClick={() => signIn("google")}
+        outline
       />
       <Button
-        outline
-        label="Continue with GitHub"
         icon={AiFillGithub}
-        onClick={() => signIn('github')}
+        label="Continue with GitHub"
+        onClick={() => signIn("github")}
+        outline
       />
-      <div className="text-neutral-500 text-center mt-4 font-light">
+      <div className="mt-4 text-center font-light text-neutral-500">
         <div className="flex flex-row items-center justify-center gap-2">
           <div>Already have an account?</div>
           <div
-            className="text-neutral-800 cursor-pointer hover:underline"
+            className="cursor-pointer text-neutral-800 hover:underline"
             onClick={registerModal.onClose}
           >
             Log in
@@ -108,14 +107,14 @@ function LoginModal() {
 
   return (
     <Modal
-      disabled={isLoading}
-      isOpen={loginModal.isOpen}
-      title="Login"
       actionLabel="Continue"
+      body={bodyContent}
+      disabled={isLoading}
+      footer={footerContent}
+      isOpen={loginModal.isOpen}
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
-      body={bodyContent}
-      footer={footerContent}
+      title="Login"
     />
   )
 }
