@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { BiSearch } from "react-icons/bi"
+import { BiSearch } from 'react-icons/bi'
 
 function Search() {
   return (

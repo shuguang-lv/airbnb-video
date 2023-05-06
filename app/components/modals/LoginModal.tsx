@@ -1,20 +1,19 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
-import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form"
-import { toast } from "react-hot-toast"
-import { AiFillGithub } from "react-icons/ai"
-import { FcGoogle } from "react-icons/fc"
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
+import { type FieldValues, type SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
+import { AiFillGithub } from 'react-icons/ai'
+import { FcGoogle } from 'react-icons/fc'
 
-import useRegisterModal from "@/app/hooks/useRegisterModal"
-
-import useLoginModal from "../../hooks/useLoginModal"
-import Button from "../Button"
-import Heading from "../Heading"
-import Input from "../inputs/Input"
-import Modal from "./Modal"
+import useLoginModal from '../../hooks/useLoginModal'
+import Button from '../Button'
+import Heading from '../Heading'
+import Input from '../inputs/Input'
+import Modal from './Modal'
+import useRegisterModal from '@/app/hooks/useRegisterModal'
 
 function LoginModal() {
   const router = useRouter()
@@ -28,29 +27,29 @@ function LoginModal() {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   })
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true)
     try {
-      const callback = await signIn("credentials", {
+      const callback = await signIn('credentials', {
         ...data,
         redirect: false,
       })
 
       setIsLoading(false)
       if (callback?.ok) {
-        toast("Logged in successfully", { icon: "👏" })
+        toast('Logged in successfully', { icon: '👏' })
         router.refresh()
         loginModal.onClose()
       }
-      if (callback?.error) {
+      if (callback?.error)
         toast.error(`${callback.error}`)
-      }
-    } catch (error) {}
+    }
+    catch (error) {}
   }
 
   const bodyContent = (
@@ -82,13 +81,13 @@ function LoginModal() {
       <Button
         icon={FcGoogle}
         label="Continue with Google"
-        onClick={() => signIn("google")}
+        onClick={() => signIn('google')}
         outline
       />
       <Button
         icon={AiFillGithub}
         label="Continue with GitHub"
-        onClick={() => signIn("github")}
+        onClick={() => signIn('github')}
         outline
       />
       <div className="mt-4 text-center font-light text-neutral-500">

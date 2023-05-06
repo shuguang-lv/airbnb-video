@@ -37,7 +37,9 @@
     "zustand": "^4.3.7"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.38.6",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
+    "@next/eslint-plugin-next": "^13.4.1",
     "@types/bcrypt": "^5.0.0",
     "@typescript-eslint/parser": "^5.59.2",
     "eslint": "^8.40.0",

@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import type { SafeUser } from "../../types/index"
-import Container from "../Container"
-import Logo from "./Logo"
-import Search from "./Search"
-import UserMenu from "./UserMenu"
+import type { SafeUser } from '../../types/index'
+import Container from '../Container'
+import Logo from './Logo'
+import Search from './Search'
+import UserMenu from './UserMenu'
 
 interface NavbarProps {
   currentUser?: SafeUser | null

@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import type { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
-import { BiDollar } from "react-icons/bi"
+import type { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
+import { BiDollar } from 'react-icons/bi'
 
 interface InputProps {
   id: string
@@ -25,9 +25,11 @@ const Input: React.FC<InputProps> = ({
   errors,
 }) => (
   <div className="relative w-full">
-    {formatPrice ? (
+    {formatPrice
+      ? (
       <BiDollar className="absolute left-2 top-5 text-neutral-700" size={24} />
-    ) : null}
+        )
+      : null}
     <input
       disabled={disabled}
       id={id}
@@ -45,9 +47,9 @@ const Input: React.FC<InputProps> = ({
           transition
           disabled:cursor-not-allowed
           disabled:opacity-70
-          ${formatPrice ? "pl-9" : "pl-4"}
-          ${errors[id] ? "border-rose-500" : "border-neutral-300"}
-          ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}
+          ${formatPrice ? 'pl-9' : 'pl-4'}
+          ${errors[id] ? 'border-rose-500' : 'border-neutral-300'}
+          ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}
         `}
       placeholder=" "
       type={type}
@@ -61,12 +63,12 @@ const Input: React.FC<InputProps> = ({
           origin-[0] 
           -translate-y-3 
           duration-150 
-          ${formatPrice ? "left-9" : "left-4"}
+          ${formatPrice ? 'left-9' : 'left-4'}
           peer-placeholder-shown:translate-y-0 
           peer-placeholder-shown:scale-100 
           peer-focus:-translate-y-4
           peer-focus:scale-75
-          ${errors[id] ? "text-rose-500" : "text-zinc-400"}
+          ${errors[id] ? 'text-rose-500' : 'text-zinc-400'}
         `}
     >
       {label}
