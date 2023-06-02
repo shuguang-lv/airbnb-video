@@ -18,6 +18,7 @@ export const Counter: React.FC<CounterProps> = ({ title, subtitle, value, onChan
   const onReduce = useCallback(() => {
     if (value === 1)
       return
+
     onChange(value - 1)
   }, [onChange, value])
 
@@ -31,7 +32,6 @@ export const Counter: React.FC<CounterProps> = ({ title, subtitle, value, onChan
       </div>
       <div className="flex flex-row items-center gap-4">
         <div
-          onClick={onReduce}
           className="
             flex
             h-10
@@ -46,6 +46,7 @@ export const Counter: React.FC<CounterProps> = ({ title, subtitle, value, onChan
             transition
             hover:opacity-80
           "
+          onClick={onReduce}
         >
           <AiOutlineMinus />
         </div>
@@ -59,7 +60,6 @@ export const Counter: React.FC<CounterProps> = ({ title, subtitle, value, onChan
             {value}
           </div>
         <div
-          onClick={onAdd}
           className="
             flex
             h-10
@@ -74,6 +74,7 @@ export const Counter: React.FC<CounterProps> = ({ title, subtitle, value, onChan
             transition
             hover:opacity-80
           "
+          onClick={onAdd}
         >
           <AiOutlinePlus />
         </div>

@@ -1,18 +1,17 @@
 import countries from 'world-countries'
 
 const formattedCountries = countries.map(country => ({
-  value: country.cca2,
-  label: country.name.common,
   flag: country.flag,
+  label: country.name.common,
   latlng: country.latlng,
   region: country.region,
+  value: country.cca2,
 }))
 
 function useCountries() {
   const getAll = () => formattedCountries
-  const getByValue = (value: string) => {
-    return formattedCountries.find(item => item.value === value)
-  }
+  const getByValue = (value: string) => formattedCountries.find(item => item.value === value)
+
   return {
     getAll,
     getByValue,

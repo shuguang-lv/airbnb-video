@@ -1,15 +1,15 @@
 'use client'
 
-import { useCallback, useState } from 'react'
 import { signOut } from 'next-auth/react'
+import { useCallback, useState } from 'react'
 import { AiOutlineMenu } from 'react-icons/ai'
 
 import useLoginModal from '../../hooks/useLoginModal'
 import type { SafeUser } from '../../types/index'
 import Avatar from '../Avatar'
 import MenuItem from './MenuItem'
-import useRegisterModal from '@/app/hooks/useRegisterModal'
 import useRentModal from '@/app/hooks/useRentModal'
+import useRegisterModal from '@/app/hooks/useRegisterModal'
 
 interface UserMenuProps {
   currentUser?: SafeUser | null

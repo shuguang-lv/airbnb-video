@@ -1,7 +1,7 @@
 'use client'
 
-import { CldUploadWidget } from 'next-cloudinary'
 import Image from 'next/image'
+import { CldUploadWidget } from 'next-cloudinary'
 import React, { useCallback } from 'react'
 import { TbPhotoPlus } from 'react-icons/tb'
 
@@ -23,15 +23,13 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => 
   return (
     <CldUploadWidget
       onUpload={handleUpload}
-      uploadPreset="im5dzozn"
       options={{
         maxFiles: 1,
       }}
+      uploadPreset="im5dzozn"
     >
-      {({ open }) => {
-        return (
+      {({ open }) => (
           <div
-            onClick={() => open?.()}
             className="
               relative
               flex
@@ -48,6 +46,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => 
               transition
               hover:opacity-70
             "
+            onClick={() => open?.()}
           >
             <TbPhotoPlus
               size={50}
@@ -55,20 +54,20 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => 
             <div className="text-lg font-semibold">
               Click to upload
             </div>
-            {value && (
-              <div className="
-              absolute inset-0 h-full w-full">
+            {value
+              ? <div className="
+              absolute inset-0 h-full w-full"
+                     >
                 <Image
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  src={value}
                   alt="House"
+                  fill
+                  src={value}
+                  style={{ objectFit: 'cover' }}
                 />
               </div>
-            )}
+              : null}
           </div>
-        )
-      }}
+      )}
     </CldUploadWidget>
   )
 }

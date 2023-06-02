@@ -1,19 +1,20 @@
 'use client'
 
+import axios from 'axios'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 import React, { useMemo, useState } from 'react'
 import type { FieldValues, SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
-import dynamic from 'next/dynamic'
-import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
+
 import Heading from '../Heading'
-import { categories } from '../navbar/Categories'
 import { CategoryInput } from '../inputs/CategoryInput'
-import { CountrySelect } from '../inputs/CountrySelect'
 import { Counter } from '../inputs/Counter'
+import { CountrySelect } from '../inputs/CountrySelect'
 import { ImageUpload } from '../inputs/ImageUpload'
 import Input from '../inputs/Input'
+import { categories } from '../navbar/Categories'
 import Modal from './Modal'
 import useRentModal from '@/app/hooks/useRentModal'
 
@@ -35,11 +36,13 @@ export function RentModal() {
   const actionLabel = useMemo(() => {
     if (step === STEPS.PRICE)
       return 'Create'
+
     return 'Next'
   }, [step])
   const secondaryActionLabel = useMemo(() => {
     if (step === STEPS.CATEGORY)
       return undefined
+
     return 'Back'
   }, [step])
 
@@ -54,15 +57,15 @@ export function RentModal() {
     reset,
   } = useForm<FieldValues>({
     defaultValues: {
-      category: '',
-      location: null,
-      guestCount: 1,
-      roomCount: 1,
       bathroomCount: 1,
-      imageSrc: '',
-      price: 1,
-      title: '',
+      category: '',
       description: '',
+      guestCount: 1,
+      imageSrc: '',
+      location: null,
+      price: 1,
+      roomCount: 1,
+      title: '',
     },
   })
 
@@ -71,6 +74,7 @@ export function RentModal() {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (step !== STEPS.PRICE)
       return onNext()
+
     setIsLoading(true)
     try {
       await axios.post('/api/listings', data)
@@ -101,17 +105,18 @@ export function RentModal() {
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
-      shouldValidate: true,
       shouldDirty: true,
       shouldTouch: true,
+      shouldValidate: true,
     })
   }
 
   let bodyContent = (
-    <div className='flex flex-col gap-8'>
+    <div className="flex flex-col gap-8">
       <Heading
+        subtitle="Pick a category"
         title="Which of these best describes your place?"
-        subtitle="Pick a category" />
+      />
       <div
         className="
           grid
@@ -123,13 +128,12 @@ export function RentModal() {
         "
       >
         {categories.map(item => (
-          <div key={item.label} className="col-span-1">
+          <div className="col-span-1" key={item.label}>
             <CategoryInput
-              onClick={category =>
-                setCustomValue('category', category)}
-              selected={category === item.label}
-              label={item.label}
               icon={item.icon}
+              label={item.label}
+              onClick={category => setCustomValue('category', category)}
+              selected={category === item.label}
             />
           </div>
         ))}
@@ -141,12 +145,12 @@ export function RentModal() {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Where is your place located?"
           subtitle="Help guests find you!"
+          title="Where is your place located?"
         />
         <CountrySelect
-          value={location}
           onChange={value => setCustomValue('location', value)}
+          value={location}
         />
         <Map center={location?.latlng} />
       </div>
@@ -157,28 +161,28 @@ export function RentModal() {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Share some basics about your place"
           subtitle="What amenitis do you have?"
+          title="Share some basics about your place"
         />
         <Counter
           onChange={value => setCustomValue('guestCount', value)}
-          value={guestCount}
-          title="Guests"
           subtitle="How many guests do you allow?"
+          title="Guests"
+          value={guestCount}
         />
         <hr />
         <Counter
           onChange={value => setCustomValue('roomCount', value)}
-          value={roomCount}
-          title="Rooms"
           subtitle="How many rooms do you have?"
+          title="Rooms"
+          value={roomCount}
         />
         <hr />
         <Counter
           onChange={value => setCustomValue('bathroomCount', value)}
-          value={bathroomCount}
-          title="Bathrooms"
           subtitle="How many bathrooms do you have?"
+          title="Bathrooms"
+          value={bathroomCount}
         />
       </div>
     )
@@ -188,8 +192,8 @@ export function RentModal() {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Add a photo of your place"
           subtitle="Show guests what your place looks like!"
+          title="Add a photo of your place"
         />
         <ImageUpload
           onChange={value => setCustomValue('imageSrc', value)}
@@ -203,24 +207,24 @@ export function RentModal() {
     bodyContent = (
       <div className="flex flex-col gap-8">
       <Heading
-        title="How would you describe your place?"
         subtitle="Short and sweet works best!"
+        title="How would you describe your place?"
       />
       <Input
+        disabled={isLoading}
+        errors={errors}
         id="title"
         label="Title"
-        disabled={isLoading}
         register={register}
-        errors={errors}
         required
       />
       <hr />
       <Input
+        disabled={isLoading}
+        errors={errors}
         id="description"
         label="Description"
-        disabled={isLoading}
         register={register}
-        errors={errors}
         required
       />
     </div>
@@ -231,18 +235,18 @@ export function RentModal() {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Now, set your price"
           subtitle="How much do you charge per night?"
+          title="Now, set your price"
         />
         <Input
+          disabled={isLoading}
+          errors={errors}
+          formatPrice
           id="price"
           label="Price"
-          formatPrice
-          type="number"
-          disabled={isLoading}
           register={register}
-          errors={errors}
           required
+          type="number"
         />
       </div>
     )
@@ -250,14 +254,14 @@ export function RentModal() {
 
   return (
     <Modal
+      actionLabel={actionLabel}
+      body={bodyContent}
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
-      actionLabel={actionLabel}
-      secondaryLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
-      title='Airbnb your home!'
-      body={bodyContent}
+      secondaryLabel={secondaryActionLabel}
+      title="Airbnb your home!"
     />
   )
 }
