@@ -32,7 +32,7 @@ export default async function Home() {
             2xl:grid-cols-6
           "
         >
-            {listings.map((listing: any) => (
+            {listings.map(listing => (
               <ListingCard
                 currentUser={currentUser}
                 data={listing}
