@@ -1,6 +1,5 @@
 'use client'
 
-import type { Reservation } from '@prisma/client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import eachDayOfInterval from 'date-fns/eachDayOfInterval'
@@ -8,7 +7,7 @@ import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays'
 import type { Range } from 'react-date-range'
-import type { SafeListing, SafeUser } from '@/app/types'
+import type { SafeListing, SafeReservation, SafeUser } from '@/app/types'
 import { categories } from '@/app/components/navbar/Categories'
 import Container from '@/app/components/Container'
 import { ListingHead } from '@/app/components/listing/ListingHead'
@@ -17,7 +16,7 @@ import useLoginModal from '@/app/hooks/useLoginModal'
 import { ListingReservation } from '@/app/components/listing/ListingReservation'
 
 interface ListingClientProps {
-  reservations?: Reservation[]
+  reservations?: SafeReservation[]
   listing: SafeListing & { user: SafeUser }
   currentUser?: SafeUser | null
 }
