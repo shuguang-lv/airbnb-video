@@ -4,6 +4,7 @@ import { signOut } from 'next-auth/react'
 import { useCallback, useState } from 'react'
 import { AiOutlineMenu } from 'react-icons/ai'
 
+import { useRouter } from 'next/navigation'
 import useLoginModal from '../../hooks/useLoginModal'
 import type { SafeUser } from '../../types/index'
 import Avatar from '../Avatar'
@@ -16,6 +17,7 @@ interface UserMenuProps {
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  const router = useRouter()
   const registerModal = useRegisterModal()
   const loginModal = useLoginModal()
   const rentModal = useRentModal()
@@ -59,7 +61,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             {currentUser
               ? (
               <>
-                <MenuItem label="My trips" onClick={() => {}} />
+                <MenuItem label="My trips" onClick={() => router.push('/trips')} />
                 <MenuItem label="My favorites" onClick={() => {}} />
                 <MenuItem label="My reservations" onClick={() => {}} />
                 <MenuItem label="My properties" onClick={() => {}} />
