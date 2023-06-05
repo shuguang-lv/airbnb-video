@@ -36,7 +36,9 @@ function RegisterModal() {
     setIsLoading(true)
     try {
       await axios.post('/api/register', data)
+      toast.success('Success!')
       registerModal.onClose()
+      loginModal.onOpen()
     }
     catch (error) {
       toast.error(`${error}`)
