@@ -8,6 +8,7 @@ import RegisterModal from './components/modals/RegisterModal'
 import { RentModal } from './components/modals/RentModal'
 import Navbar from './components/navbar/Navbar'
 import ToasterProvider from './providers/ToasterProvider'
+import { SearchModal } from './components/modals/SearchModal'
 
 export const metadata = {
   description: 'Airbnb clone',
@@ -29,6 +30,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ToasterProvider />
+        <SearchModal />
         <RentModal />
         <LoginModal />
         <RegisterModal />
